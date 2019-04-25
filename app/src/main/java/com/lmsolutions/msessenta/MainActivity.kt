@@ -35,6 +35,11 @@ class MainActivity : DebugActivity() {
         val valorUsuario = campoUsuario.text.toString()
         val valorSenha = campoSenha.text.toString()
 
+        val testeUsu = "Rafael"
+        val testeSenha = 123
+
+
+
         //Toast.makeText( this,  "Nome do usuario: ${campo_usuario.text}", Toast.LENGTH_SHORT).show()
 
         // criação da intent para navegar entre telas/activities
@@ -43,7 +48,7 @@ class MainActivity : DebugActivity() {
         // criação da variavel para colocar parametros
         val params = Bundle()
         // colocar parametros na intent
-        params.putString("nome", "Rafael Turra")
+        params.putString("nome", "Rafael")
         intent.putExtras(params)
 
         // colocar parametros do tipo string

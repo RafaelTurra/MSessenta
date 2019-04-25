@@ -2,15 +2,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
-                android:id="@+id/nav_diciplinas"
-                android:icon="@drawable/ic_disciplina_black"
-                android:title="Disciplinas"
+                android:id="@+id/nav_cadastro"
+                android:icon="@drawable/ic_cadastro_black"
+                android:title="Cadastro"
                 android:checked="true"/>
 
         <item
-                android:id="@+id/nav_forum"
-                android:icon="@drawable/ic_forum_black"
-                android:title="Fórum" />
+                android:id="@+id/nav_clientes"
+                android:icon="@drawable/ic_cliente_black"
+                android:title="Cliente" />
 
         <item
                 android:id="@+id/nav_mensagens"

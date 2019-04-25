@@ -4,30 +4,24 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.drm.DrmStore
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Parcel
-import android.os.Parcelable
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.widget.*
-import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
-import br.com.fernandosousa.lmsapp.DisciplinaService
+import br.com.fernandosousa.lmsapp.CadastroService
+//import br.com.fernandosousa.lmsapp.CadastroService
 import kotlinx.android.synthetic.main.activity_tela_inicial.*
 
 class TelaInicialActivity() : DebugActivity(),
     NavigationView.OnNavigationItemSelectedListener {
 
     private val context: Context get() = this
-    private var disciplinas = listOf<Disciplina>()
+    private var cadastro = listOf<Cadastro>()
     var recyclerDisc: RecyclerView? = null
     constructor(context: Context) : this() {
     }
@@ -63,7 +57,7 @@ class TelaInicialActivity() : DebugActivity(),
         setSupportActionBar(toolbar)
 
         // alterar título da ActionBar
-        supportActionBar?.title = "Disciplinas"
+        supportActionBar?.title = "Cadastro"
 
         // up navigation
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -71,7 +65,7 @@ class TelaInicialActivity() : DebugActivity(),
         configuraMenuLateral()
 
         // configurar cardview
-        recyclerDisc = recyclerDisciplinas // findViewById<RecyclerView>(R.id.recyclerDisciplinas)
+        recyclerDisc = recyclerCadastro // findViewById<RecyclerView>(R.id.recyclerDisciplinas)
         recyclerDisc?.layoutManager = LinearLayoutManager(context)
         recyclerDisc?.itemAnimator = DefaultItemAnimator()
         recyclerDisc?.setHasFixedSize(true)
@@ -80,15 +74,15 @@ class TelaInicialActivity() : DebugActivity(),
 
     override fun onResume() {
         super.onResume()
-        // task para recuperar as disciplinas
-        taskDisciplinas()
+        // task para recuperar as Cadastro
+        taskCadastro()
     }
 
-    // configurar as disciplinas
-    fun taskDisciplinas() {
-        this.disciplinas = DisciplinaService.getDisciplinas(context)
+    // configurar os Cadastros
+    fun taskCadastro() {
+        this.cadastro = CadastroService.getCadastro(context)
         // atualizar lista
-        recyclerDisciplinas?.adapter = DisciplinaAdapter(disciplinas) {onClickDisciplina(it)}
+        recyclerCadastro?.adapter = CadastroAdapter(cadastro) {onClickCadastro(it)}
     }
 
     fun cliqueSair() {
@@ -99,10 +93,10 @@ class TelaInicialActivity() : DebugActivity(),
     }
 
     // tratamento do evento de clicar em uma disciplina
-    fun onClickDisciplina(disciplina: Disciplina) {
-        Toast.makeText(context, "Clicou disciplina ${disciplina.nome}", Toast.LENGTH_SHORT).show()
-        val intent = Intent(context, DisciplinaActivity::class.java)
-        intent.putExtra("disciplina", disciplina)
+    fun onClickCadastro(cadastro: Cadastro) {
+        Toast.makeText(context, "Clicou cadastro ${cadastro.nome}", Toast.LENGTH_SHORT).show()
+        val intent = Intent(context, CadastroActivity::class.java)
+        intent.putExtra("cadastro", cadastro)
         startActivity(intent)
     }
 
@@ -165,7 +159,7 @@ class TelaInicialActivity() : DebugActivity(),
     // para tratar os eventos de clique no menu lateral
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.nav_diciplinas -> {
+            R.id.nav_cadastro -> {
                 Toast.makeText(this, "Clicou Disciplinas", Toast.LENGTH_SHORT).show()
             }
 
@@ -173,7 +167,7 @@ class TelaInicialActivity() : DebugActivity(),
                 Toast.makeText(this, "Clicou Mensagens", Toast.LENGTH_SHORT).show()
             }
 
-            R.id.nav_forum -> {
+            R.id.nav_clientes -> {
                 Toast.makeText(this, "Clicou Forum", Toast.LENGTH_SHORT).show()
             }
 

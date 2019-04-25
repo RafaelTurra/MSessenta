@@ -15,7 +15,7 @@
         <activity android:name=".TelaInicialActivity"
                   android:theme="@style/AppTheme.Toolbar">
         </activity>
-        <activity android:name="DisciplinaActivity"
+        <activity android:name="CadastroActivity"
                   android:theme="@style/AppTheme.Toolbar">
         </activity>
         <activity android:name=".DebugActivity"

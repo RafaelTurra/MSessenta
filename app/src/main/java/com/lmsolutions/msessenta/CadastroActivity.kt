@@ -6,15 +6,15 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.squareup.picasso.Picasso
 
-class DisciplinaActivity : DebugActivity() {
+class CadastroActivity : DebugActivity() {
 
-    var disciplina: Disciplina? = null
+    var disciplina: Cadastro? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_disciplina)
+        setContentView(R.layout.activity_cadastro)
 
         // recuperar onjeto de Disciplina da Intent
-        disciplina = intent.getSerializableExtra("disciplina") as Disciplina
+        disciplina = intent.getSerializableExtra("disciplina") as Cadastro
 
         // configurar título com nome da Disciplina e botão de voltar da Toobar
         // colocar toolbar
@@ -28,9 +28,9 @@ class DisciplinaActivity : DebugActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         // atualizar dados do carro
-        var texto = findViewById<TextView>(R.id.nomeDisciplina)
+        var texto = findViewById<TextView>(R.id.nomeCadastro)
         texto.text = disciplina?.nome
-        var imagem = findViewById<ImageView>(R.id.imagemDisciplina)
+        var imagem = findViewById<ImageView>(R.id.imagemCadastro)
         Picasso.with(this).load(disciplina?.foto).fit().into(imagem,
                 object: com.squareup.picasso.Callback{
                     override fun onSuccess() {}

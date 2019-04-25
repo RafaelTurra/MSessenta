@@ -2,15 +2,15 @@ package com.lmsolutions.msessenta
 
 import java.io.Serializable
 
-class Disciplina : Serializable {
+class Cadastro: Serializable {
 
     var id:Long = 0
     var nome = ""
-    var ementa = ""
+    var endereco = ""
     var foto = ""
-    var professor = ""
+    var profissao = ""
 
     override fun toString(): String {
-        return "Disciplina(nome='$nome')"
+        return "Cadastro(endereco='$endereco')"
     }
 }

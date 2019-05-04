@@ -36,6 +36,10 @@
             android:ems="10"
             android:inputType="textPassword" />
 
+    <CheckBox
+            android:text="Salvar Usuário"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:id="@+id/checkBox"/>
     <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"

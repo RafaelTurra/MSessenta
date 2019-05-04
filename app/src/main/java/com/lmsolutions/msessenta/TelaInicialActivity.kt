@@ -13,7 +13,7 @@ import android.support.v7.widget.*
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
-import br.com.fernandosousa.lmsapp.CadastroService
+//import br.com.fernandosousa.lmsapp.CadastroService
 //import br.com.fernandosousa.lmsapp.CadastroService
 import kotlinx.android.synthetic.main.activity_tela_inicial.*
 
@@ -117,7 +117,7 @@ class TelaInicialActivity() : DebugActivity(),
 
     // método sobrescrito para inflar o menu na Actionbar
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        // infla o menu com os botões da Acti   onBar
+        // infla o menu com os botões da ActionBar
         menuInflater.inflate(R.menu.menu_main, menu)
         // vincular evento de buscar
         (menu?.findItem(R.id.action_buscar)?.actionView as SearchView).setOnQueryTextListener(object :

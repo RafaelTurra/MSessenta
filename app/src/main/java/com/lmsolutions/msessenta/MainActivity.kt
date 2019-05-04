@@ -29,11 +29,29 @@ class MainActivity : DebugActivity() {
 
     //private val context: Context get() = this
 
+    override fun onResume() {
+        super.onResume()
+        campo_usuario.setText(Prefs.getString("lembrarNome"))
+        campo_senha.setText(Prefs.getString("lembrarSenha"))
+        checkBox.isChecked = Prefs.getBoolean("lembrar")
+    }
+
     fun onClickLogin() {
         val campoUsuario = findViewById<EditText>(R.id.campo_usuario)
         val campoSenha = findViewById<EditText>(R.id.campo_senha)
         val valorUsuario = campoUsuario.text.toString()
         val valorSenha = campoSenha.text.toString()
+
+        Prefs.setBoolean("lembrar", checkBox.isChecked)
+        if (checkBox.isChecked){
+            Prefs.setString("lembrarNome", valorUsuario )
+            Prefs.setString("lembrarSenha", valorSenha )
+
+        } else {
+            Prefs.setString("lembrarNome", "" )
+            Prefs.setString("lembrarSenha", "" )
+        }
+
 
         val testeUsu = "Rafael"
         val testeSenha = 123

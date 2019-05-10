@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.lmsolutions.msessenta">
+
     <uses-permission android:name="android.permission.INTERNET"/>
-
-
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
             android:name=".ImSolutions"
@@ -13,14 +13,19 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".TelaInicialActivity"
-                  android:theme="@style/AppTheme.Toolbar">
+        <activity android:name=".ActivityProduto">
         </activity>
-        <activity android:name="CadastroActivity"
-                  android:theme="@style/AppTheme.Toolbar">
+        <activity android:name=".ActivityVenda">
         </activity>
-        <activity android:name=".DebugActivity"
-                 >
+        <activity
+                android:name=".TelaInicialActivity"
+                android:theme="@style/AppTheme.Toolbar">
+        </activity>
+        <activity
+                android:name=".CadastroActivity"
+                android:theme="@style/AppTheme.Toolbar">
+        </activity>
+        <activity android:name=".DebugActivity">
         </activity>
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -29,6 +34,12 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <service android:name=".MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="oom.google.firebase.MESSAGING_EVENT">
+                </action>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

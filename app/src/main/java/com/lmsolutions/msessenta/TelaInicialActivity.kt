@@ -22,7 +22,8 @@ class TelaInicialActivity() : DebugActivity(),
 
     private val context: Context get() = this
     private var cadastro = listOf<Cadastro>()
-    var recyclerDisc: RecyclerView? = null
+    var recyclerCadastros: RecyclerView? = null
+    //var recyclerDisc: RecyclerView? = null
     constructor(context: Context) : this() {
     }
 
@@ -65,10 +66,10 @@ class TelaInicialActivity() : DebugActivity(),
         configuraMenuLateral()
 
         // configurar cardview
-        recyclerDisc = recyclerCadastro // findViewById<RecyclerView>(R.id.recyclerDisciplinas)
-        recyclerDisc?.layoutManager = LinearLayoutManager(context)
-        recyclerDisc?.itemAnimator = DefaultItemAnimator()
-        recyclerDisc?.setHasFixedSize(true)
+        recyclerCadastros = findViewById<RecyclerView>(R.id.recyclerCadastro)
+        recyclerCadastros?.layoutManager = LinearLayoutManager(context)
+        recyclerCadastros?.itemAnimator = DefaultItemAnimator()
+        recyclerCadastros?.setHasFixedSize(true)
 
     }
 
@@ -80,9 +81,14 @@ class TelaInicialActivity() : DebugActivity(),
 
     // configurar os Cadastros
     fun taskCadastro() {
-        this.cadastro = CadastroService.getCadastro(context)
-        // atualizar lista
-        recyclerCadastro?.adapter = CadastroAdapter(cadastro) {onClickCadastro(it)}
+        Thread {
+            this.cadastro = CadastroService.getCadastro(context)
+            // atualizar lista
+            runOnUiThread {
+                recyclerCadastros?.adapter = CadastroAdapter(this.cadastro) { onClickCadastro(it) }
+                enviaNotificacao()
+            }
+        }.start()
     }
 
     fun cliqueSair() {
@@ -184,6 +190,13 @@ class TelaInicialActivity() : DebugActivity(),
         val drawer = findViewById<DrawerLayout>(R.id.layourMenuLateral)
         drawer.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    fun enviaNotificacao() {
+        val intent = Intent (this, CadastroActivity::class.java)
+
+        NotificationUtil.create(1, intent, "ImSolutions", "Voê tem novos cadastros")
+
     }
 
     //override fun writeToParcel(parcel: Parcel, flags: Int) {

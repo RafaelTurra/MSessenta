@@ -23,6 +23,8 @@ class TelaInicialActivity() : DebugActivity(),
     private val context: Context get() = this
     private var cadastro = listOf<Cadastro>()
     var recyclerCadastros: RecyclerView? = null
+    private var REQUEST_CADASTRO = 1
+    private var REQUEST_REMOVE= 2
     //var recyclerDisc: RecyclerView? = null
     constructor(context: Context) : this() {
     }
@@ -105,7 +107,7 @@ class TelaInicialActivity() : DebugActivity(),
         Toast.makeText(context, "Clicou cadastro ${cadastro.nome}", Toast.LENGTH_SHORT).show()
         val intent = Intent(context, CadastroActivity::class.java)
         intent.putExtra("cadastro", cadastro)
-        startActivity(intent)
+        startActivityForResult(intent, REQUEST_REMOVE)
     }
 
     // configuraçao do navigation Drawer com a toolbar
@@ -156,6 +158,11 @@ class TelaInicialActivity() : DebugActivity(),
             Toast.makeText(context, "Botão de atualizar", Toast.LENGTH_LONG).show()
         } else if (id == R.id.action_config) {
             Toast.makeText(context, "Botão de configuracoes", Toast.LENGTH_LONG).show()
+        } else if (id == R.id.action_adicionar) {
+            // iniciar activity de cadastro
+            val intent = Intent(context, ClienteCadastroActivity::class.java)
+            startActivityForResult(intent, REQUEST_CADASTRO)
+
         }
         // botão up navigation
         else if (id == android.R.id.home) {

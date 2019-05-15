@@ -76,17 +76,19 @@ class TelaInicialActivity() : DebugActivity(),
     override fun onResume() {
         super.onResume()
         // task para recuperar as Cadastro
-        taskCadastro()
+        taskCadastros()
     }
 
     // configurar os Cadastros
-    fun taskCadastro() {
+    fun taskCadastros() {
         Thread {
-            this.cadastro = CadastroService.getCadastro(context)
+            this.cadastro = CadastroService.getCadastros(context)
             // atualizar lista
             runOnUiThread {
+                // Código para atualizar a UI com a lista de disciplinas
                 recyclerCadastros?.adapter = CadastroAdapter(this.cadastro) { onClickCadastro(it) }
-                enviaNotificacao()
+                // enviar notificação
+                //enviaNotificacao(this.cadastro.get(0))
             }
         }.start()
     }

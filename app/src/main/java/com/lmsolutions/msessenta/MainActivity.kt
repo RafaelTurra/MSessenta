@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import android.widget.*
 import kotlinx.android.synthetic.main.login.*
 
@@ -24,26 +26,42 @@ class MainActivity : DebugActivity() {
 
         val botaoLogin = findViewById<Button>(R.id.botao_login)
 
-        botao_login.setOnClickListener { onClickLogin() }
+        botaoLogin.setOnClickListener {onClickLogin() }
+
+        progressBar.visibility = View.INVISIBLE
+
+        var lembrar = Prefs.getBoolean("lembrar")
+        if (lembrar) {
+            var lembrarNome  = Prefs.getString("lembrarNome")
+            var lembrarSenha  = Prefs.getString("lembrarSenha")
+            campo_usuario.setText(lembrarNome)
+            campo_senha.setText(lembrarSenha)
+            checkBoxLogin.isChecked = lembrar
+
+        }
     }
 
-    //private val context: Context get() = this
+
 
     override fun onResume() {
         super.onResume()
-        campo_usuario.setText(Prefs.getString("lembrarNome"))
-        campo_senha.setText(Prefs.getString("lembrarSenha"))
-        checkBox.isChecked = Prefs.getBoolean("lembrar")
+        // abrir a disciplina caso clique na notificação com o aplicativo fechado
+        abrirCadastro()
+        // mostrar no log o tokem do firebase
+        Log.d("firebase", "Firebase Token: ${Prefs.getString("FB_TOKEN")}")
     }
 
     fun onClickLogin() {
-        val campoUsuario = findViewById<EditText>(R.id.campo_usuario)
-        val campoSenha = findViewById<EditText>(R.id.campo_senha)
-        val valorUsuario = campoUsuario.text.toString()
-        val valorSenha = campoSenha.text.toString()
+        //val campoUsuario = findViewById<EditText>(R.id.campo_usuario)
+        //val campoSenha = findViewById<EditText>(R.id.campo_senha)
+        val valorUsuario = campo_usuario.text.toString()
+        val valorSenha = campo_senha.text.toString()
 
-        Prefs.setBoolean("lembrar", checkBox.isChecked)
-        if (checkBox.isChecked){
+        // armazenar valor do checkbox
+        Prefs.setBoolean("lembrar", checkBoxLogin.isChecked)
+
+        // verificar se é para lembrar nome e senha
+        if (checkBoxLogin.isChecked){
             Prefs.setString("lembrarNome", valorUsuario )
             Prefs.setString("lembrarSenha", valorSenha )
 
@@ -53,8 +71,6 @@ class MainActivity : DebugActivity() {
         }
 
 
-        val testeUsu = "Rafael"
-        val testeSenha = 123
 
 
 
@@ -86,5 +102,21 @@ class MainActivity : DebugActivity() {
 
            // Toast.makeText(context, "Saiu do MSessentaApp", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    fun abrirCadastro() {
+        // verificar se existe  id da disciplina na intent
+        if (intent.hasExtra("cadastroId")) {
+            Thread {
+                var cadastroId = intent.getStringExtra("disciplinaId")?.toLong()!!
+                val cadastro = CadastroService.getCadastro(this, cadastroId)
+                runOnUiThread {
+                    val intentDisciplina = Intent(this, CadastroActivity::class.java)
+                    intentDisciplina.putExtra("disciplina", cadastro)
+                    startActivity(intentDisciplina)
+                }
+            }.start()
+        }
+
     }
 }

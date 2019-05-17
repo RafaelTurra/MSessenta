@@ -7,8 +7,8 @@ import android.widget.EditText
 
 class ActivityProduto : AppCompatActivity() {
 
-    //private val context: Context get() = this
-   // var cadastro: Cadastro? = null
+    private val context: Context get() = this
+    var cadastro: Cadastro? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_produto)
